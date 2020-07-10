@@ -20,28 +20,29 @@ class AllTT(Environment):
     escape = False
     content_separator = "\n"
 
-# Create a new document
-doc = Document()
-with doc.create(Section('Wrapping Latex Environments')):
-    doc.append(NoEscape(
-        r"""
-        The following is a demonstration of a custom \LaTeX{}
-        command with a couple of parameters.
-        """))
 
-    # Put some data inside the AllTT environment
-    with doc.create(AllTT()):
-        verbatim = ("This is verbatim, alltt, text.\n\n\n"
-                    "Setting \\underline{escape} to \\underline{False} "
-                    "ensures that text in the environment is not\n"
-                    "subject to escaping...\n\n\n"
-                    "Setting \\underline{content_separator} "
-                    "ensures that line endings are broken in\n"
-                    "the latex just as they are in the input text.\n"
-                    "alltt supports math: \\(x^2=10\\)")
-        doc.append(verbatim)
+if __name__ == "__main__":
+    doc = Document()
+    with doc.create(Section('Wrapping Latex Environments')):
+        doc.append(NoEscape(
+            r"""
+            The following is a demonstration of a custom \LaTeX{}
+            command with a couple of parameters.
+            """))
 
-    doc.append("This is back to normal text...")
+        # Put some data inside the AllTT environment
+        with doc.create(AllTT()):
+            verbatim = ("This is verbatim, alltt, text.\n\n\n"
+                        "Setting \\underline{escape} to \\underline{False} "
+                        "ensures that text in the environment is not\n"
+                        "subject to escaping...\n\n\n"
+                        "Setting \\underline{content_separator} "
+                        "ensures that line endings are broken in\n"
+                        "the latex just as they are in the input text.\n"
+                        "alltt supports math: \\(x^2=10\\)")
+            doc.append(verbatim)
 
-# Generate pdf
-doc.generate_pdf('environment_ex', clean_tex=False)
+        doc.append("This is back to normal text...")
+
+    # Generate pdf
+    doc.generate_pdf('environment_ex', clean_tex=False)
